@@ -7,7 +7,6 @@ parameters:
     - ../../orderfeatures.php
     - ../../config/
     - ../../src/
-    - ../../translations/
     - ../../upgrade/
   level: 5
   parallel:

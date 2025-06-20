@@ -1,9 +1,31 @@
 <?php
 
 /**
- * @author    ChillCode <https://github.com/chillcode>
- * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+ * Copyright since 2007 PrestaShop SA and Contributors
+ * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/OSL-3.0
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to https://devdocs.prestashop.com/ for more information.
+ *
+ * @author    PrestaShop SA and Contributors <contact@prestashop.com>
+ * @copyright Since 2007 PrestaShop SA and Contributors
+ * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
+
+declare(strict_types=1);
 
 namespace PrestaShop\Module\OrderFeatures\Controller\Admin\Sell\Order;
 
@@ -16,7 +38,6 @@ use PrestaShop\Module\OrderFeatures\Core\Domain\Order\Exception\CannotDeleteOrde
 use PrestaShop\PrestaShop\Adapter\Currency\CurrencyDataProvider;
 use PrestaShop\PrestaShop\Adapter\LegacyContext;
 use PrestaShop\PrestaShop\Adapter\PDF\OrderInvoicePdfGenerator;
-use PrestaShop\PrestaShop\Core\Domain\Order\ValueObject\OrderId;
 use PrestaShop\PrestaShop\Core\Form\ChoiceProvider\LanguageByIdChoiceProvider;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShop\PrestaShop\Core\Form\FormChoiceProviderInterface;
@@ -54,7 +75,7 @@ class OrderController extends PrestaShopAdminController
     private $orderControllerCore;
 
     public function __construct(
-        ?OrderControllerCore $orderControllerCore
+        ?OrderControllerCore $orderControllerCore,
     ) {
         $this->orderControllerCore = $orderControllerCore;
     }
@@ -68,14 +89,14 @@ class OrderController extends PrestaShopAdminController
      * @param LoggerInterface $logger
      */
     public function setLogger(
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ) {
         $this->logger = $logger;
     }
 
     public function generateInvoicePdfAction(
         int $orderId,
-        OrderInvoicePdfGenerator $invoicePdfGenerator
+        OrderInvoicePdfGenerator $invoicePdfGenerator,
     ): BinaryFileResponse {
         return $this->orderControllerCore->generateInvoicePdfAction(
             $orderId,
@@ -85,7 +106,7 @@ class OrderController extends PrestaShopAdminController
 
     public function generateDeliverySlipPdfAction(
         int $orderId,
-        PDFGeneratorInterface $deliverySlipPdfGenerator
+        PDFGeneratorInterface $deliverySlipPdfGenerator,
     ): BinaryFileResponse {
         return $this->orderControllerCore->generateDeliverySlipPdfAction(
             $orderId,
@@ -94,7 +115,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function changeOrdersStatusAction(
-        Request $request
+        Request $request,
     ) {
         return $this->orderControllerCore->changeOrdersStatusAction(
             $request
@@ -103,7 +124,7 @@ class OrderController extends PrestaShopAdminController
 
     public function exportAction(
         OrderFilters $filters,
-        GridFactory $orderGridFactory
+        GridFactory $orderGridFactory,
     ) {
         return $this->orderControllerCore->exportAction(
             $filters,
@@ -115,7 +136,7 @@ class OrderController extends PrestaShopAdminController
         int $orderId,
         Request $request,
         FormBuilderInterface $formBuilder,
-        FormHandlerInterface $formHandler
+        FormHandlerInterface $formHandler,
     ) {
         return $this->orderControllerCore->partialRefundAction(
             $orderId,
@@ -129,7 +150,7 @@ class OrderController extends PrestaShopAdminController
         int $orderId,
         Request $request,
         FormBuilderInterface $formBuilder,
-        FormHandlerInterface $formHandler
+        FormHandlerInterface $formHandler,
     ) {
         return $this->orderControllerCore->standardRefundAction(
             $orderId,
@@ -143,7 +164,7 @@ class OrderController extends PrestaShopAdminController
         int $orderId,
         Request $request,
         FormBuilderInterface $formBuilder,
-        FormHandlerInterface $formHandler
+        FormHandlerInterface $formHandler,
     ) {
         return $this->orderControllerCore->returnProductAction(
             $orderId,
@@ -157,7 +178,7 @@ class OrderController extends PrestaShopAdminController
         int $orderId,
         Request $request,
         FormBuilderInterface $formBuilder,
-        CurrencyDataProvider $currencyDataProvider
+        CurrencyDataProvider $currencyDataProvider,
     ): Response {
         return $this->orderControllerCore->addProductAction(
             $orderId,
@@ -168,7 +189,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function getProductPricesAction(
-        int $orderId
+        int $orderId,
     ): Response {
         return $this->orderControllerCore->getProductPricesAction(
             $orderId
@@ -177,7 +198,7 @@ class OrderController extends PrestaShopAdminController
 
     public function getInvoicesAction(
         int $orderId,
-        #[AutowireDecorated] ConfigurableFormChoiceProviderInterface $choiceProvider
+        #[AutowireDecorated] ConfigurableFormChoiceProviderInterface $choiceProvider,
     ) {
         return $this->orderControllerCore->getInvoicesAction(
             $orderId,
@@ -186,7 +207,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function getDocumentsAction(
-        int $orderId
+        int $orderId,
     ) {
         return $this->orderControllerCore->getDocumentsAction(
             $orderId
@@ -203,7 +224,7 @@ class OrderController extends PrestaShopAdminController
 
     public function updateShippingAction(
         int $orderId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->updateShippingAction(
             $orderId,
@@ -213,7 +234,7 @@ class OrderController extends PrestaShopAdminController
 
     public function removeCartRuleAction(
         int $orderId,
-        int $orderCartRuleId
+        int $orderCartRuleId,
     ): RedirectResponse {
         return $this->orderControllerCore->removeCartRuleAction(
             $orderId,
@@ -224,7 +245,7 @@ class OrderController extends PrestaShopAdminController
     public function updateInvoiceNoteAction(
         int $orderId,
         int $orderInvoiceId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->updateInvoiceNoteAction(
             $orderId,
@@ -238,7 +259,7 @@ class OrderController extends PrestaShopAdminController
         int $orderDetailId,
         Request $request,
         #[AutowireDecorated] FormBuilderInterface $formBuilder,
-        CurrencyDataProvider $currencyDataProvider
+        CurrencyDataProvider $currencyDataProvider,
     ): Response {
         return $this->orderControllerCore->updateProductAction(
             $orderId,
@@ -251,7 +272,7 @@ class OrderController extends PrestaShopAdminController
 
     public function addCartRuleAction(
         int $orderId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->addCartRuleAction(
             $orderId,
@@ -261,7 +282,7 @@ class OrderController extends PrestaShopAdminController
 
     public function updateStatusAction(
         int $orderId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->updateStatusAction(
             $orderId,
@@ -271,7 +292,7 @@ class OrderController extends PrestaShopAdminController
 
     public function updateStatusFromListAction(
         int $orderId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->updateStatusFromListAction(
             $orderId,
@@ -281,7 +302,7 @@ class OrderController extends PrestaShopAdminController
 
     public function addPaymentAction(
         int $orderId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->addPaymentAction(
             $orderId,
@@ -300,7 +321,7 @@ class OrderController extends PrestaShopAdminController
     public function sendMessageAction(
         Request $request,
         int $orderId,
-        #[AutowireDecorated] RouterInterface $router
+        #[AutowireDecorated] RouterInterface $router,
     ): Response {
         return $this->orderControllerCore->sendMessageAction(
             $request,
@@ -316,7 +337,7 @@ class OrderController extends PrestaShopAdminController
 
     public function changeCurrencyAction(
         int $orderId,
-        Request $request
+        Request $request,
     ): RedirectResponse {
         return $this->orderControllerCore->changeCurrencyAction(
             $orderId,
@@ -327,7 +348,7 @@ class OrderController extends PrestaShopAdminController
     public function resendEmailAction(
         int $orderId,
         int $orderStatusId,
-        int $orderHistoryId
+        int $orderHistoryId,
     ): RedirectResponse {
         return $this->orderControllerCore->resendEmailAction(
             $orderId,
@@ -338,7 +359,7 @@ class OrderController extends PrestaShopAdminController
 
     public function deleteProductAction(
         int $orderId,
-        int $orderDetailId
+        int $orderDetailId,
     ): JsonResponse {
         return $this->orderControllerCore->deleteProductAction(
             $orderId,
@@ -347,7 +368,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function getDiscountsAction(
-        int $orderId
+        int $orderId,
     ): Response {
         return $this->orderControllerCore->getDiscountsAction(
             $orderId
@@ -355,7 +376,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function getPricesAction(
-        int $orderId
+        int $orderId,
     ): JsonResponse {
         return $this->orderControllerCore->getPricesAction(
             $orderId
@@ -363,7 +384,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function getPaymentsAction(
-        int $orderId
+        int $orderId,
     ): Response {
         return $this->orderControllerCore->getPaymentsAction(
             $orderId
@@ -373,7 +394,7 @@ class OrderController extends PrestaShopAdminController
     public function getProductsListAction(
         int $orderId,
         #[AutowireDecorated] FormBuilderInterface $formBuilder,
-        CurrencyDataProvider $currencyDataProvider
+        CurrencyDataProvider $currencyDataProvider,
     ): Response {
         return $this->orderControllerCore->getProductsListAction(
             $orderId,
@@ -383,7 +404,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function generateInvoiceAction(
-        int $orderId
+        int $orderId,
     ): RedirectResponse {
         return $this->orderControllerCore->generateInvoiceAction(
             $orderId
@@ -391,7 +412,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function sendProcessOrderEmailAction(
-        Request $request
+        Request $request,
     ): JsonResponse {
         return $this->orderControllerCore->sendProcessOrderEmailAction(
             $request
@@ -422,7 +443,7 @@ class OrderController extends PrestaShopAdminController
     public function displayCustomizationImageAction(
         int $orderId,
         string $value,
-        LegacyContext $context
+        LegacyContext $context,
     ) {
         return $this->orderControllerCore->displayCustomizationImageAction(
             $orderId,
@@ -433,7 +454,7 @@ class OrderController extends PrestaShopAdminController
 
     public function setInternalNoteAction(
         int $orderId,
-        Request $request
+        Request $request,
     ) {
         return $this->orderControllerCore->setInternalNoteAction(
             $orderId,
@@ -442,7 +463,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function searchProductsAction(
-        Request $request
+        Request $request,
     ): JsonResponse {
         return $this->orderControllerCore->searchProductsAction(
             $request
@@ -453,7 +474,7 @@ class OrderController extends PrestaShopAdminController
         Request $request,
         OrderFilters $filters,
         KpiRowFactoryInterface $orderKpiFactory,
-        GridFactory $orderGridFactory
+        GridFactory $orderGridFactory,
     ) {
         return $this->orderControllerCore->indexAction(
             $request,
@@ -468,7 +489,7 @@ class OrderController extends PrestaShopAdminController
         Request $request,
         FormBuilderInterface $formBuilder,
         OrderSiblingProviderInterface $orderSiblingProvider,
-        CurrencyDataProvider $currencyDataProvider
+        CurrencyDataProvider $currencyDataProvider,
     ): Response {
         return $this->orderControllerCore->viewAction(
             $orderId,
@@ -481,7 +502,7 @@ class OrderController extends PrestaShopAdminController
 
     public function placeAction(
         Request $request,
-        FormHandlerInterface $formHandler
+        FormHandlerInterface $formHandler,
     ) {
         return $this->orderControllerCore->placeAction(
             $request,
@@ -492,7 +513,7 @@ class OrderController extends PrestaShopAdminController
     public function createAction(
         Request $request,
         LanguageByIdChoiceProvider $languageChoiceProvider,
-        FormChoiceProviderInterface $currencyChoiceProvider
+        FormChoiceProviderInterface $currencyChoiceProvider,
     ) {
         return $this->orderControllerCore->createAction(
             $request,
@@ -503,7 +524,7 @@ class OrderController extends PrestaShopAdminController
 
     public function searchAction(
         Request $request,
-        OrderGridDefinitionFactory $orderGridDefinitionFactory
+        OrderGridDefinitionFactory $orderGridDefinitionFactory,
     ) {
         return $this->orderControllerCore->searchAction(
             $request,
@@ -512,7 +533,7 @@ class OrderController extends PrestaShopAdminController
     }
 
     public function previewAction(
-        int $orderId
+        int $orderId,
     ): JsonResponse {
         return $this->orderControllerCore->previewAction(
             $orderId
@@ -525,17 +546,19 @@ class OrderController extends PrestaShopAdminController
      * TODO: To add a deleteAction we could use GET method (not recommended, so is not released) or to load submit in WebPack js file, since i don't want to distribute js will wait till is loaded like the rest.
      */
     #[AdminSecurity("is_granted('delete', 'AdminOrders')", message: 'You do not have permission to delete this.', redirectQueryParamsToKeep: ['orderId'], redirectRoute: 'admin_orders_view')]
-    private function deleteAction(
-        OrderId $orderId
+    public function deleteAction(
+        Request $request,
     ) {
         try {
-            $this->dispatchCommand(new DeleteOrderCommand($orderId));
+            $orderToDelete = $request->request->getInt('order_order_single_delete', 0);
+
+            $this->dispatchCommand(new DeleteOrderCommand($orderToDelete));
 
             $this->addFlash(
                 'success',
                 $this->trans('The order has been successfully deleted.', [], 'Admin.Notifications.Success')
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->addFlash(
                 'error',
                 $this->trans($this->getErrorMessageForException($e, $this->getErrorMessages()), [], 'Admin.Notifications.Success')
@@ -555,7 +578,7 @@ class OrderController extends PrestaShopAdminController
     #[AdminSecurity("is_granted('delete', 'AdminOrders')", message: 'You do not have permission to edit this.', redirectQueryParamsToKeep: ['orderId'], redirectRoute: 'admin_orders_view')]
     #[DemoRestricted(message: 'You cannot delete orders in demo mode.')]
     public function bulkDeleteAction(
-        Request $request
+        Request $request,
     ) {
         $ordersToDelete = array_map('intval', $request->request->all('order_orders_bulk'));
 
@@ -566,7 +589,7 @@ class OrderController extends PrestaShopAdminController
                 'success',
                 $this->trans('The selection has been successfully deleted.', [], 'Admin.Notifications.Success')
             );
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             if ($e instanceof BulkOrderException) {
                 return $this->jsonBulkErrors($e);
             } else {
@@ -585,7 +608,7 @@ class OrderController extends PrestaShopAdminController
      *
      * @param BulkOrderException $bulkOrderException
      *
-     * @return JsonResponse
+     * @return RedirectResponse
      */
     private function jsonBulkErrors(BulkOrderException $bulkOrderException): RedirectResponse
     {

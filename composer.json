@@ -13,8 +13,9 @@
     "php": ">=7.4"
   },
   "require-dev": {
+    "phpstan/phpstan": "^2.1",
     "prestashop/php-dev-tools": "^5.0",
-    "phpstan/phpstan": "^2.1"
+    "friendsofphp/php-cs-fixer": "^3.75"
   },
   "config": {
     "preferred-install": "dist",
@@ -31,9 +32,12 @@
     ]
   },
   "type": "prestashop-module",
-    "scripts": {
-        "lint": [
-            "php-cs-fixer fix --no-interaction --dry-run --diff"
-        ]
-    }
+  "scripts": {
+    "lint": [
+      "php-cs-fixer fix --no-interaction --dry-run --diff"
+    ],
+    "fix": [
+      "php-cs-fixer fix --diff"
+    ]
+  }
 }

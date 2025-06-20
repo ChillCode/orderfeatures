@@ -28,7 +28,6 @@
 namespace PrestaShop\Module\OrderFeatures\Core\Domain\Order\Command;
 
 use PrestaShop\PrestaShop\Core\Domain\Order\ValueObject\OrderId;
-use PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint;
 
 /**
  * Changes status for given orders.
@@ -41,13 +40,7 @@ class BulkDeleteOrderCommand
     private $orderIds;
 
     /**
-     * @var ShopConstraint
-     */
-    private $shopConstraint;
-
-    /**
      * @param int[] $orderIds
-     * @param int $newOrderStatusId
      */
     public function __construct(array $orderIds)
     {
@@ -70,13 +63,5 @@ class BulkDeleteOrderCommand
         foreach ($orderIds as $orderId) {
             $this->orderIds[] = new OrderId($orderId);
         }
-    }
-
-    /**
-     * @return ShopConstraint
-     */
-    public function getShopConstraint(): ShopConstraint
-    {
-        return $this->shopConstraint;
     }
 }

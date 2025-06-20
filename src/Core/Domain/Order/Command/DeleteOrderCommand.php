@@ -45,7 +45,7 @@ class DeleteOrderCommand
      * @param int $orderId
      */
     public function __construct(
-        OrderId $orderId
+        int $orderId,
     ) {
         $this->orderId = new OrderId($orderId);
     }
