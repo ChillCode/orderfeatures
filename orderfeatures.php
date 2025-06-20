@@ -3,7 +3,7 @@
 /**
  * Order Features
  *
- * PHP version 7.4
+ * PHP version 8.1
  *
  * @category Module
  *
@@ -11,7 +11,7 @@
  * @copyright 2003-2023
  * @license https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *
- * @version GIT: 1.0.3
+ * @version GIT: 2.0.0
  *
  * @see https://github.com/chillcode
  */
@@ -26,10 +26,10 @@ class Orderfeatures extends Module
     {
         $this->name = 'orderfeatures';
         $this->tab = 'content_management';
-        $this->version = '1.0.3';
+        $this->version = '2.0.0';
         $this->author = 'Chillcode';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = ['min' => '1.7.8.0', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '9.0.0.0', 'max' => _PS_VERSION_];
 
         parent::__construct();
 

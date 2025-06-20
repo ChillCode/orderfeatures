@@ -2,5 +2,7 @@ admin_orders_bulk_delete:
   path: /bulk-delete/
   methods: [POST]
   defaults:
-    _controller: decorated_order_controller:bulkDeleteAction
+    _controller: decorated_order_controller::bulkDeleteAction
     _legacy_controller: AdminOrders
+  options:
+    expose: true

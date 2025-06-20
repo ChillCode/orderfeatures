@@ -2,18 +2,39 @@ services:
   _defaults:
     public: true
 
+  PrestaShop\Module\OrderFeatures\Adapter\Order\Repository\OrderRepository:
+    autoconfigure: true
+    autowire: true
+    arguments: ["@doctrine.dbal.default_connection", "%database_prefix%"]
+
   decorated_order_controller:
     class: PrestaShop\Module\OrderFeatures\Controller\Admin\Sell\Order\OrderController
     decorates: PrestaShopBundle\Controller\Admin\Sell\Order\OrderController
     arguments: ["@decorated_order_controller.inner"]
+    autowire: true
+    autoconfigure: true
     calls: [[setLogger, ['@logger']]]
+    tags: ['controller.service_arguments'] 
 
-  prestashop.module.orderfeatures.adapter.order.repository.order_repository:
-    class: PrestaShop\Module\OrderFeatures\Adapter\Order\Repository\OrderRepository
-    arguments: ["@doctrine.dbal.default_connection", "%database_prefix%"]
 
   prestashop.module.orderfeatures.core.grid.definition.factory.order:
     class: PrestaShop\Module\OrderFeatures\Core\Grid\Definition\Factory\OrderGridDefinitionFactory
     decorates: prestashop.core.grid.definition.factory.order
+    autoconfigure: true
+    autowire: true
     arguments: ["@prestashop.module.orderfeatures.core.grid.definition.factory.order.inner", "@prestashop.core.hook.dispatcher"]
     calls: [[setTranslator, ['@translator']]]
+
+  PrestaShop\Module\OrderFeatures\Adapter\Order\CommandHandler\DeleteOrderHandler:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  PrestaShop\Module\OrderFeatures\Adapter\Order\CommandHandler\BulkDeleteOrderHandler:
+    public: false
+    autowire: true
+    autoconfigure: true
+
+  PrestaShop\Module\OrderFeatures\Adapter\Order\OrderDeleter:
+    public: false
+    autowire: true
