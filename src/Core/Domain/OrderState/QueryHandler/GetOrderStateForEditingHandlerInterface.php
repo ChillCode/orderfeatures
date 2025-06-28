@@ -27,8 +27,17 @@
 
 declare(strict_types=1);
 
-namespace PrestaShop\Module\OrderFeatures\Core\Domain\Order\Exception;
+namespace PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryHandler;
 
-class CannotBulkDeleteOrderFromShopsException extends BulkOrderException
+use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Query\GetOrderStateForEditing;
+
+/**
+ * Interface for service that gets order state data for editing
+ */
+interface GetOrderStateForEditingHandlerInterface
 {
+    /**
+     * @return EditableOrderState
+     */
+    public function handle(GetOrderStateForEditing $query);
 }
