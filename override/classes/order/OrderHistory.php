@@ -68,10 +68,8 @@ class OrderHistory extends OrderHistoryCore
             if ($result['module_name']) {
                 $module = Module::getInstanceByName($result['module_name']);
                 if (Validate::isLoadedObject($module)) {
-                    $module_vars = get_object_vars($module);
-                    if (isset($module_vars['extra_mail_vars']) && is_array($module_vars['extra_mail_vars'])) {
-                        $data = array_merge($module_vars['extra_mail_vars']);
-                        $module_vars['extra_mail_vars'] = $module = null;
+                    if (isset($module->extra_mail_vars) && is_array($module->extra_mail_vars)) {
+                        $data = array_merge($data, $module->extra_mail_vars);
                     }
                 }
             }
