@@ -1,8 +1,8 @@
 <?php
 
-//phpcs:disable Generic.Files.LineLength.TooLong
+// phpcs:disable Generic.Files.LineLength.TooLong
 
-/**
+/*
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
  *
@@ -31,7 +31,6 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\OrderFeatures\Controller\Admin\Configure\ShopParameters;
 
-use Exception;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Command\EditOrderStateCommand;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Query\GetOrderStateForEditing;
 use PrestaShop\PrestaShop\Adapter\LegacyContext;
@@ -54,11 +53,11 @@ use PrestaShop\PrestaShop\Core\Grid\GridFactoryInterface;
 use PrestaShop\PrestaShop\Core\Search\Filters\OrderReturnStatesFilters;
 use PrestaShop\PrestaShop\Core\Search\Filters\OrderStatesFilters;
 use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use PrestaShopBundle\Security\Attribute\AdminSecurity;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrderStateControllerDecorator extends PrestaShopAdminController
 {
@@ -99,7 +98,7 @@ class OrderStateControllerDecorator extends PrestaShopAdminController
 
     #[AdminSecurity("is_granted('read', request.get('_legacy_controller'))")]
     public function searchGridAction(
-        Request $request
+        Request $request,
     ): RedirectResponse {
         if ($request->request->has(OrderReturnStatesGridDefinitionFactory::GRID_ID)) {
             $gridDefinitionFactory = $this->container->get(OrderReturnStatesGridDefinitionFactory::GRID_ID);
@@ -175,7 +174,6 @@ class OrderStateControllerDecorator extends PrestaShopAdminController
         FormHandlerInterface $orderStateFormHandler,
         LegacyContext $context,
     ): Response {
-
         $orderStateForm = $orderStateFormBuilder->getFormFor($orderStateId);
         $orderStateForm->handleRequest($request);
 
@@ -430,13 +428,12 @@ class OrderStateControllerDecorator extends PrestaShopAdminController
         }, $orderReturnStateIds);
     }
 
-
     /**
      * Get errors that can be used to translate exceptions into user-friendly messages
      *
      * @return array
      */
-    private function getErrorMessages(Exception $e)
+    private function getErrorMessages(\Exception $e)
     {
         return [
             OrderStateNotFoundException::class => $this->trans(

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'OFAlterAction' => $baseDir . '/orderfeatures.php',
     'Orderfeatures' => $baseDir . '/orderfeatures.php',
     'PrestaShop\\Module\\OrderFeatures\\Adapter\\OrderState\\CommandHandler\\AddOrderStateHandler' => $baseDir . '/src/Adapter/OrderState/CommandHandler/AddOrderStateHandler.php',
     'PrestaShop\\Module\\OrderFeatures\\Adapter\\OrderState\\CommandHandler\\EditOrderStateHandler' => $baseDir . '/src/Adapter/OrderState/CommandHandler/EditOrderStateHandler.php',
@@ -34,7 +35,7 @@ return array(
     'PrestaShop\\Module\\OrderFeatures\\Core\\Domain\\Order\\Exception\\CannotBulkDeleteOrderException' => $baseDir . '/src/Core/Domain/Order/Exception/CannotBulkDeleteOrderException.php',
     'PrestaShop\\Module\\OrderFeatures\\Core\\Domain\\Order\\Exception\\CannotDeleteOrderException' => $baseDir . '/src/Core/Domain/Order/Exception/CannotDeleteOrderException.php',
     'PrestaShop\\Module\\OrderFeatures\\Core\\Grid\\Definition\\Factory\\OrderGridDefinitionFactory' => $baseDir . '/src/Core/Grid/Definition/Factory/OrderGridDefinitionFactory.php',
-    'PrestaShop\\Module\\OrderFeatures\\Form\\Admin\\Configure\\ShopParameters\\OrderStates\\OrderStateTypeDecorator' => $baseDir . '/src/Form/Admin/Configure/ShopParameters/OrderStates/OrderStateTypeDecorator.php',
+    'PrestaShop\\Module\\OrderFeatures\\Form\\Admin\\Configure\\ShopParameters\\OrderStates\\OrderStateType' => $baseDir . '/src/Form/Admin/Configure/ShopParameters/OrderStates/OrderStateType.php',
     'PrestaShop\\Module\\OrderFeatures\\Form\\IdentifiableObject\\DataHandler\\OrderStateFormDataHandler' => $baseDir . '/src/Form/IdentifiableObject/DataHandler/OrderStateFormDataHandler.php',
     'PrestaShop\\Module\\OrderFeatures\\Form\\IdentifiableObject\\DataProvider\\OrderStateFormDataProvider' => $baseDir . '/src/Form/IdentifiableObject/DataProvider/OrderStateFormDataProvider.php',
 );

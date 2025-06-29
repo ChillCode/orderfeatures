@@ -29,7 +29,6 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\OrderFeatures\Adapter\OrderState\CommandHandler;
 
-use OrderState;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Command\EditOrderStateCommand;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\CommandHandler\EditOrderStateHandlerInterface;
 use PrestaShop\PrestaShop\Adapter\OrderState\CommandHandler\AbstractOrderStateHandler;
@@ -65,7 +64,7 @@ final class EditOrderStateHandler extends AbstractOrderStateHandler implements E
     public function handle(EditOrderStateCommand $command)
     {
         $orderStateId = $command->getOrderStateId();
-        $orderState = new OrderState($orderStateId->getValue());
+        $orderState = new \OrderState($orderStateId->getValue());
 
         $this->assertOrderStateWasFound($orderStateId, $orderState);
 
@@ -93,7 +92,7 @@ final class EditOrderStateHandler extends AbstractOrderStateHandler implements E
     /**
      * @throws MissingOrderStateRequiredFieldsException
      */
-    protected function assertRequiredFieldsAreNotMissing(OrderState $orderState)
+    protected function assertRequiredFieldsAreNotMissing(\OrderState $orderState)
     {
         // Check that we have templates for all languages when send_email is on
         $haveMissingTemplates = (
@@ -104,16 +103,13 @@ final class EditOrderStateHandler extends AbstractOrderStateHandler implements E
         );
 
         if (true === $orderState->send_email && true === $haveMissingTemplates) {
-            throw new MissingOrderStateRequiredFieldsException(
-                ['template'],
-                'One or more required fields for order state are missing. Missing fields are: template'
-            );
+            throw new MissingOrderStateRequiredFieldsException(['template'], 'One or more required fields for order state are missing. Missing fields are: template');
         }
 
         parent::assertRequiredFieldsAreNotMissing($orderState);
     }
 
-    private function updateOrderStateWithCommandData(OrderState $orderState, EditOrderStateCommand $command)
+    private function updateOrderStateWithCommandData(\OrderState $orderState, EditOrderStateCommand $command)
     {
         if (null !== $command->getName()) {
             $orderState->name = $command->getName();
@@ -145,10 +141,14 @@ final class EditOrderStateHandler extends AbstractOrderStateHandler implements E
 
         if (null !== $command->isSendEmailWarehouse()) {
             $orderState->send_email_warehouse = $command->isSendEmailWarehouse();
-        }
-
-        if (null !== $command->getEmailWarehouse()) {
-            $orderState->email_warehouse = $command->getEmailWarehouse();
+            if ($orderState->send_email_warehouse) {
+                if (null !== $command->getEmailWarehouse()) {
+                    $orderState->email_warehouse = $command->getEmailWarehouse();
+                }
+                if (null !== $command->getWarehouseTemplate()) {
+                    $orderState->email_warehouse_template = $command->getWarehouseTemplate();
+                }
+            }
         }
 
         if (null !== $command->isPdfInvoice()) {

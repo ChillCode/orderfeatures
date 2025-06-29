@@ -29,11 +29,10 @@ declare(strict_types=1);
 
 namespace PrestaShop\Module\OrderFeatures\Adapter\OrderState\CommandHandler;
 
-use OrderState;
-use PrestaShop\PrestaShop\Core\CommandBus\Attributes\AsCommandHandler;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Command\AddOrderStateCommand;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\CommandHandler\AddOrderStateHandlerInterface;
 use PrestaShop\PrestaShop\Adapter\OrderState\CommandHandler\AbstractOrderStateHandler;
+use PrestaShop\PrestaShop\Core\CommandBus\Attributes\AsCommandHandler;
 use PrestaShop\PrestaShop\Core\Domain\OrderState\Exception\OrderStateException;
 use PrestaShop\PrestaShop\Core\Domain\OrderState\OrderStateFileUploaderInterface;
 use PrestaShop\PrestaShop\Core\Domain\OrderState\ValueObject\OrderStateId;
@@ -64,7 +63,7 @@ final class AddOrderStateHandler extends AbstractOrderStateHandler implements Ad
      */
     public function handle(AddOrderStateCommand $command)
     {
-        $orderState = new OrderState();
+        $orderState = new \OrderState();
 
         $this->fillOrderStateWithCommandData($orderState, $command);
         $this->assertRequiredFieldsAreNotMissing($orderState);
@@ -81,7 +80,7 @@ final class AddOrderStateHandler extends AbstractOrderStateHandler implements Ad
         return new OrderStateId((int) $orderState->id);
     }
 
-    private function fillOrderStateWithCommandData(OrderState $orderState, AddOrderStateCommand $command)
+    private function fillOrderStateWithCommandData(\OrderState $orderState, AddOrderStateCommand $command)
     {
         $orderState->name = $command->getLocalizedNames();
         $orderState->color = $command->getColor();
@@ -98,6 +97,9 @@ final class AddOrderStateHandler extends AbstractOrderStateHandler implements Ad
         $orderState->email_warehouse = $command->getEmailWarehouse();
         if ($command->isSendEmailEnabled()) {
             $orderState->template = $command->getLocalizedTemplates();
+        }
+        if ($command->isSendEmailWarehouse()) {
+            $orderState->email_warehouse_template = $command->getLocalizedWarehouseTemplates();
         }
     }
 }

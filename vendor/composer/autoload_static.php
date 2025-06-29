@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit57b40765c237c7b39abb0a8fafac272b
+class ComposerStaticInit41cb2db3e004c617b66f89701e52a9d9
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -22,6 +22,7 @@ class ComposerStaticInit57b40765c237c7b39abb0a8fafac272b
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'OFAlterAction' => __DIR__ . '/../..' . '/orderfeatures.php',
         'Orderfeatures' => __DIR__ . '/../..' . '/orderfeatures.php',
         'PrestaShop\\Module\\OrderFeatures\\Adapter\\OrderState\\CommandHandler\\AddOrderStateHandler' => __DIR__ . '/../..' . '/src/Adapter/OrderState/CommandHandler/AddOrderStateHandler.php',
         'PrestaShop\\Module\\OrderFeatures\\Adapter\\OrderState\\CommandHandler\\EditOrderStateHandler' => __DIR__ . '/../..' . '/src/Adapter/OrderState/CommandHandler/EditOrderStateHandler.php',
@@ -49,7 +50,7 @@ class ComposerStaticInit57b40765c237c7b39abb0a8fafac272b
         'PrestaShop\\Module\\OrderFeatures\\Core\\Domain\\Order\\Exception\\CannotBulkDeleteOrderException' => __DIR__ . '/../..' . '/src/Core/Domain/Order/Exception/CannotBulkDeleteOrderException.php',
         'PrestaShop\\Module\\OrderFeatures\\Core\\Domain\\Order\\Exception\\CannotDeleteOrderException' => __DIR__ . '/../..' . '/src/Core/Domain/Order/Exception/CannotDeleteOrderException.php',
         'PrestaShop\\Module\\OrderFeatures\\Core\\Grid\\Definition\\Factory\\OrderGridDefinitionFactory' => __DIR__ . '/../..' . '/src/Core/Grid/Definition/Factory/OrderGridDefinitionFactory.php',
-        'PrestaShop\\Module\\OrderFeatures\\Form\\Admin\\Configure\\ShopParameters\\OrderStates\\OrderStateTypeDecorator' => __DIR__ . '/../..' . '/src/Form/Admin/Configure/ShopParameters/OrderStates/OrderStateTypeDecorator.php',
+        'PrestaShop\\Module\\OrderFeatures\\Form\\Admin\\Configure\\ShopParameters\\OrderStates\\OrderStateType' => __DIR__ . '/../..' . '/src/Form/Admin/Configure/ShopParameters/OrderStates/OrderStateType.php',
         'PrestaShop\\Module\\OrderFeatures\\Form\\IdentifiableObject\\DataHandler\\OrderStateFormDataHandler' => __DIR__ . '/../..' . '/src/Form/IdentifiableObject/DataHandler/OrderStateFormDataHandler.php',
         'PrestaShop\\Module\\OrderFeatures\\Form\\IdentifiableObject\\DataProvider\\OrderStateFormDataProvider' => __DIR__ . '/../..' . '/src/Form/IdentifiableObject/DataProvider/OrderStateFormDataProvider.php',
     );
@@ -57,9 +58,9 @@ class ComposerStaticInit57b40765c237c7b39abb0a8fafac272b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit57b40765c237c7b39abb0a8fafac272b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit57b40765c237c7b39abb0a8fafac272b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit57b40765c237c7b39abb0a8fafac272b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit41cb2db3e004c617b66f89701e52a9d9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit41cb2db3e004c617b66f89701e52a9d9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit41cb2db3e004c617b66f89701e52a9d9::$classMap;
 
         }, null, ClassLoader::class);
     }

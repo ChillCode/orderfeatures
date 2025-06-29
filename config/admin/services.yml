@@ -38,10 +38,10 @@ services:
     public: false
     autowire: true
 
-  PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateTypeDecorator:
+  PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType:
     decorates: PrestaShopBundle\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType
     arguments:
-      $inner: '@PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateTypeDecorator.inner'
+      $inner: '@PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType.inner'
       $locales: "@=service('prestashop.adapter.legacy.context').getLanguages()"
       $themeCatalog: '@prestashop.core.mail_template.theme_catalog'
       $routing: '@router'

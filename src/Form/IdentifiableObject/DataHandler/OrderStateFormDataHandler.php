@@ -47,7 +47,7 @@ final class OrderStateFormDataHandler implements FormDataHandlerInterface
     private $bus;
 
     public function __construct(
-        CommandBusInterface $bus
+        CommandBusInterface $bus,
     ) {
         $this->bus = $bus;
     }
@@ -94,7 +94,8 @@ final class OrderStateFormDataHandler implements FormDataHandlerInterface
             $data['delivery'],
             $data['template'],
             $data['send_email_warehouse'],
-            $data['email_warehouse']
+            (string) $data['email_warehouse'],
+            $data['warehouse_template']
         );
 
         if (isset($data['icon'])) {
@@ -133,7 +134,8 @@ final class OrderStateFormDataHandler implements FormDataHandlerInterface
             ->setDelivery($data['delivery'])
             ->setTemplate($data['template'])
             ->setSendEmailWarehouse($data['send_email_warehouse'])
-            ->setEmailWarehouse($data['email_warehouse'])
+            ->setEmailWarehouse((string) $data['email_warehouse'])
+            ->setWarehouseTemplate($data['warehouse_template'])
         ;
 
         /** @var UploadedFile|null $fileObject */

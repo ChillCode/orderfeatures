@@ -45,7 +45,7 @@ final class OrderStateFormDataProvider implements FormDataProviderInterface
     private $queryBus;
 
     public function __construct(
-        CommandBusInterface $queryBus
+        CommandBusInterface $queryBus,
     ) {
         $this->queryBus = $queryBus;
     }
@@ -73,6 +73,7 @@ final class OrderStateFormDataProvider implements FormDataProviderInterface
             'paid' => $editableOrderState->isPaid(),
             'delivery' => $editableOrderState->isDelivery(),
             'template' => $editableOrderState->getLocalizedTemplates(),
+            'warehouse_template' => $editableOrderState->getLocalizedWarehouseTemplates(),
         ];
     }
 
@@ -83,6 +84,7 @@ final class OrderStateFormDataProvider implements FormDataProviderInterface
     {
         return [
             'color' => '#ffffff',
+            'email_warehouse' => ''
         ];
     }
 }

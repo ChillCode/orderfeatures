@@ -35,7 +35,6 @@ use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryHandler\GetOrder
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryResult\EditableOrderState;
 use PrestaShop\PrestaShop\Core\CommandBus\Attributes\AsQueryHandler;
 use PrestaShop\PrestaShop\Core\Domain\OrderState\Exception\OrderStateNotFoundException;
-use SplFileInfo;
 
 /**
  * Handles command that gets orderState for editing
@@ -51,17 +50,14 @@ final class GetOrderStateForEditingHandler implements GetOrderStateForEditingHan
     public function handle(GetOrderStateForEditing $query)
     {
         $orderStateId = $query->getOrderStateId();
-        $orderState = new OrderState($orderStateId->getValue());
+        $orderState = new \OrderState($orderStateId->getValue());
 
         if ($orderState->id !== $orderStateId->getValue()) {
-            throw new OrderStateNotFoundException(
-                $orderStateId,
-                sprintf('OrderState with id "%s" was not found', $orderStateId->getValue())
-            );
+            throw new OrderStateNotFoundException($orderStateId, sprintf('OrderState with id "%s" was not found', $orderStateId->getValue()));
         }
 
         $filePath = _PS_ORDER_STATE_IMG_DIR_ . $orderState->id . '.gif';
-        $file = file_exists($filePath) ? new SplFileInfo($filePath) : null;
+        $file = file_exists($filePath) ? new \SplFileInfo($filePath) : null;
 
         return new EditableOrderState(
             $orderStateId,
@@ -80,6 +76,7 @@ final class GetOrderStateForEditingHandler implements GetOrderStateForEditingHan
             $orderState->template,
             (bool) $orderState->send_email_warehouse,
             $orderState->email_warehouse,
+            $orderState->email_warehouse_template,
             (bool) $orderState->deleted,
         );
     }

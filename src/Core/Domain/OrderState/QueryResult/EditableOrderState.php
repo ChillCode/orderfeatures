@@ -30,7 +30,6 @@ declare(strict_types=1);
 namespace PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryResult;
 
 use PrestaShop\PrestaShop\Core\Domain\OrderState\ValueObject\OrderStateId;
-use SplFileInfo;
 
 /**
  * Stores editable data for order state
@@ -46,7 +45,7 @@ class EditableOrderState
      */
     private $localizedNames;
     /**
-     * @var SplFileInfo|null
+     * @var \SplFileInfo|null
      */
     protected $icon;
     /**
@@ -107,10 +106,15 @@ class EditableOrderState
      */
     private $emailWarehouse;
 
+    /**
+     * @var array
+     */
+    private $localizedWarehouseTemplates;
+
     public function __construct(
         OrderStateId $orderStateId,
         array $name,
-        ?SplFileInfo $icon,
+        ?\SplFileInfo $icon,
         string $color,
         bool $loggable,
         bool $invoice,
@@ -122,9 +126,10 @@ class EditableOrderState
         bool $paid,
         bool $delivery,
         array $localizedTemplates,
-        bool $sendEmailWarehouse = false,
-        ?string $emailWarehouse = null,
-        bool $isDeleted
+        bool $sendEmailWarehouse,
+        string $emailWarehouse,
+        array $localizedWarehouseTemplates,
+        bool $isDeleted,
     ) {
         $this->orderStateId = $orderStateId;
         $this->localizedNames = $name;
@@ -142,6 +147,7 @@ class EditableOrderState
         $this->localizedTemplates = $localizedTemplates;
         $this->sendEmailWarehouse = $sendEmailWarehouse;
         $this->emailWarehouse = $emailWarehouse;
+        $this->localizedWarehouseTemplates = $localizedWarehouseTemplates;
         $this->isDeleted = $isDeleted;
     }
 
@@ -258,24 +264,34 @@ class EditableOrderState
     }
 
     /**
-     * @return SplFileInfo|null
+     * @return \SplFileInfo|null
      */
-    public function getIcon(): ?SplFileInfo
+    public function getIcon(): ?\SplFileInfo
     {
         return $this->icon;
     }
+
     /**
      * @return bool
      */
-    public function isSendEmailWarehouse(): bool
+    public function isSendEmailWarehouse()
     {
         return $this->sendEmailWarehouse;
     }
+
     /**
-     * @return string|null
+     * @return string
      */
-    public function getEmailWarehouse(): ?string
+    public function getEmailWarehouse()
     {
-        return $this->emailWarehouse;
+        return (string) $this->emailWarehouse;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLocalizedWarehouseTemplates()
+    {
+        return $this->localizedWarehouseTemplates;
     }
 }

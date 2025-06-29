@@ -138,6 +138,11 @@ class EditOrderStateCommand
     protected $email_warehouse;
 
     /**
+     * @var string|null
+     */
+    protected $warehouse_template;
+
+    /**
      * @param int $orderStateId
      */
     public function __construct($orderStateId)
@@ -381,7 +386,7 @@ class EditOrderStateCommand
         string $pathName,
         int $fileSize,
         string $mimeType,
-        string $originalName
+        string $originalName,
     ): void {
         $this->pathName = $pathName;
         $this->fileSize = $fileSize;
@@ -420,6 +425,7 @@ class EditOrderStateCommand
     {
         return $this->originalName;
     }
+
     /**
      * @return bool|null
      */
@@ -427,6 +433,7 @@ class EditOrderStateCommand
     {
         return $this->send_email_warehouse;
     }
+
     /**
      * @return self
      */
@@ -436,19 +443,40 @@ class EditOrderStateCommand
 
         return $this;
     }
+
     /**
      * @return string|null
      */
-    public function getEmailWarehouse()
+    public function getEmailWarehouse(): string
     {
         return $this->email_warehouse;
     }
+
     /**
      * @return self
      */
     public function setEmailWarehouse(?string $email_warehouse)
     {
         $this->email_warehouse = $email_warehouse;
+
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getWarehouseTemplate()
+    {
+        return $this->warehouse_template;
+    }
+
+    /**
+     * @return self
+     */
+    public function setWarehouseTemplate(?array $warehouse_template)
+    {
+        $this->warehouse_template = $warehouse_template;
+
         return $this;
     }
 }

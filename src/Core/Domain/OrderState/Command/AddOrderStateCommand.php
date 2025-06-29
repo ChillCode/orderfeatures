@@ -108,16 +108,22 @@ class AddOrderStateCommand
     /**
      * @var bool|null
      */
-    protected $send_email_warehouse;
+    protected $sendEmailWarehouse;
 
     /**
-     * @var string|null
+     * @var string
      */
-    protected $email_warehouse;
+    protected $emailWarehouse;
+
+    /**
+     * @var string
+     */
+    protected $localizedWarehouseTemplates;
 
     /**
      * @param string[] $localizedNames
      * @param string[] $localizedTemplates
+     * @param string[] $localizedWarehouseTemplates
      */
     public function __construct(
         array $localizedNames,
@@ -132,8 +138,9 @@ class AddOrderStateCommand
         bool $paid,
         bool $delivery,
         array $localizedTemplates,
-        bool $send_email_warehouse,
-        string $email_warehouse,
+        bool $sendEmailWarehouse,
+        string $emailWarehouse,
+        array $localizedWarehouseTemplates,
     ) {
         $this->setLocalizedNames($localizedNames);
         $this->color = $color;
@@ -147,11 +154,10 @@ class AddOrderStateCommand
         $this->paid = $paid;
         $this->delivery = $delivery;
         $this->localizedTemplates = $localizedTemplates;
-        $this->send_email_warehouse = $send_email_warehouse;
-        $this->email_warehouse = $email_warehouse;
+        $this->sendEmailWarehouse = $sendEmailWarehouse;
+        $this->emailWarehouse = $emailWarehouse;
+        $this->localizedWarehouseTemplates = $localizedWarehouseTemplates;
     }
-
-
 
     public function getLocalizedNames()
     {
@@ -168,10 +174,7 @@ class AddOrderStateCommand
     public function setLocalizedNames(array $localizedNames)
     {
         if (empty($localizedNames)) {
-            throw new OrderStateConstraintException(
-                'Order status name cannot be empty',
-                OrderStateConstraintException::EMPTY_NAME
-            );
+            throw new OrderStateConstraintException('Order status name cannot be empty', OrderStateConstraintException::EMPTY_NAME);
         }
 
         $this->localizedNames = $localizedNames;
@@ -277,7 +280,7 @@ class AddOrderStateCommand
         string $pathName,
         int $fileSize,
         string $mimeType,
-        string $originalName
+        string $originalName,
     ): void {
         $this->pathName = $pathName;
         $this->fileSize = $fileSize;
@@ -316,18 +319,28 @@ class AddOrderStateCommand
     {
         return $this->originalName;
     }
+
     /**
      * @return bool|null
      */
-    public function isSendEmailWarehouse(): ?bool
+    public function isSendEmailWarehouse()
     {
-        return $this->send_email_warehouse;
+        return $this->sendEmailWarehouse;
     }
+
     /**
-     * @return string|null
+     * @return string
      */
-    public function getEmailWarehouse(): ?string
+    public function getEmailWarehouse()
     {
-        return $this->email_warehouse;
+        return $this->emailWarehouse;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocalizedWarehouseTemplates()
+    {
+        return $this->localizedWarehouseTemplates;
     }
 }
