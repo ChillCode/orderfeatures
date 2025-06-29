@@ -100,4 +100,9 @@ services:
     arguments:
       - '@prestashop.module.form.identifiable_object.data_handler.order_state_form_data_handler'
 
+  PrestaShop\Module\OrderFeatures\Command\DeleteOrdersCommand:
+    arguments:
+      $commandBus: '@prestashop.core.command_bus'
+    tags:
+      - { name: 'console.command' }
 
