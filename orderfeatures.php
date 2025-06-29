@@ -58,8 +58,6 @@ class Orderfeatures extends Module
             [],
             'Modules.Orderfeatures.Admin'
         );
-
-        $this->registerHook('actionAdminControllerSetMedia');
     }
 
     public function install()
