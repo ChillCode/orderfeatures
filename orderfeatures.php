@@ -62,9 +62,7 @@ class Orderfeatures extends Module
 
     public function install()
     {
-        $this->registerHook('actionAdminControllerSetMedia');
-
-        return $this->alterTables(ORDERFEATURES_ADD) && parent::install();
+        return $this->alterTables(ORDERFEATURES_ADD) && parent::install() && $this->registerHook('actionAdminControllerSetMedia');
     }
 
     /**
