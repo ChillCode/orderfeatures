@@ -57,7 +57,7 @@ class OrderState extends OrderStateCore
             'size' => 255
         ];
 
-        self::$definition['fields']['email_warehouse_template'] = [
+        self::$definition['fields']['warehouse_template'] = [
             'type' => self::TYPE_STRING,
             'lang' => true,
             'validate' => 'isTplName',
