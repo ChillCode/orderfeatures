@@ -109,7 +109,7 @@ class Orderfeatures extends Module
                 'email_warehouse' => "VARCHAR(255) NOT NULL DEFAULT '' AFTER send_email_warehouse",
             ],
             'order_state_lang' => [
-                'email_warehouse_template' => 'VARCHAR(64) NOT NULL AFTER template',
+                'warehouse_template' => 'VARCHAR(64) NOT NULL AFTER template',
             ],
         ];
 

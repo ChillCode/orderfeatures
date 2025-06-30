@@ -99,7 +99,7 @@ final class AddOrderStateHandler extends AbstractOrderStateHandler implements Ad
             $orderState->template = $command->getLocalizedTemplates();
         }
         if ($command->isSendEmailWarehouse()) {
-            $orderState->email_warehouse_template = $command->getLocalizedWarehouseTemplates();
+            $orderState->warehouse_template = $command->getLocalizedWarehouseTemplates();
         }
     }
 }

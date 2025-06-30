@@ -76,7 +76,7 @@ final class GetOrderStateForEditingHandler implements GetOrderStateForEditingHan
             $orderState->template,
             (bool) $orderState->send_email_warehouse,
             $orderState->email_warehouse,
-            $orderState->email_warehouse_template,
+            $orderState->warehouse_template,
             (bool) $orderState->deleted,
         );
     }

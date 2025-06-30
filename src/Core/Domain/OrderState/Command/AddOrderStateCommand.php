@@ -106,7 +106,7 @@ class AddOrderStateCommand
     protected $originalName;
 
     /**
-     * @var bool|null
+     * @var bool
      */
     protected $sendEmailWarehouse;
 
@@ -116,7 +116,7 @@ class AddOrderStateCommand
     protected $emailWarehouse;
 
     /**
-     * @var string
+     * @var array
      */
     protected $localizedWarehouseTemplates;
 

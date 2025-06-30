@@ -28,9 +28,21 @@
  */
 class OrderState extends OrderStateCore
 {
+    /**
+     * @var bool
+     */
     public $send_email_warehouse;
+
+    /**
+     * @var string
+     */
+
     public $email_warehouse;
-    public $email_warehouse_template;
+
+    /**
+     * @var string|array<int, string>
+     */
+    public $warehouse_template;
 
     public function __construct(
         $id = null,

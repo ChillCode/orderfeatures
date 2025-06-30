@@ -45,9 +45,7 @@ $(() => {
 
   $(document).on('click', emailWarehouseTemplatePreview, (event) => {
     const $element = $(event.currentTarget);
-    const $select = $element
-      .closest('.form-group')
-      .find('select.translatable_choice:visible');
+    const $select = $element.closest('.form-group').find('select.translatable_choice:visible');
     const $uri = $select.find('option:selected').attr('data-preview');
 
     viewTemplates($uri);
