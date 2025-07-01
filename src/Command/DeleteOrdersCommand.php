@@ -41,7 +41,7 @@ class DeleteOrdersCommand extends Command
     protected static $defaultName = 'orderfeatures:delete-orders';
 
     public function __construct(
-        private readonly CommandBusInterface $commandBus
+        private readonly CommandBusInterface $commandBus,
     ) {
         parent::__construct();
     }

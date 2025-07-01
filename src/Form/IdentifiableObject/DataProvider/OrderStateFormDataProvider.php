@@ -84,7 +84,7 @@ final class OrderStateFormDataProvider implements FormDataProviderInterface
     {
         return [
             'color' => '#ffffff',
-            'email_warehouse' => ''
+            'email_warehouse' => '',
         ];
     }
 }

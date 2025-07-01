@@ -41,7 +41,6 @@ services:
   PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType:
     decorates: PrestaShopBundle\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType
     arguments:
-      $inner: '@PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType.inner'
       $locales: "@=service('prestashop.adapter.legacy.context').getLanguages()"
       $themeCatalog: '@prestashop.core.mail_template.theme_catalog'
       $routing: '@router'
@@ -74,8 +73,6 @@ services:
     arguments:
       - '@PrestaShop\PrestaShop\Adapter\File\Uploader\OrderStateFileUploader'
 
-
-# This service is used to provide the form data for the OrderState form
   PrestaShop\Module\OrderFeatures\Form\IdentifiableObject\DataProvider\OrderStateFormDataProvider:
     class: 'PrestaShop\Module\OrderFeatures\Form\IdentifiableObject\DataProvider\OrderStateFormDataProvider'
     arguments:

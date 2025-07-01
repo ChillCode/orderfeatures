@@ -138,7 +138,7 @@ class EditOrderStateCommand
     protected $email_warehouse;
 
     /**
-     * @var string|null
+     * @var array|null
      */
     protected $warehouse_template;
 
@@ -447,7 +447,7 @@ class EditOrderStateCommand
     /**
      * @return string|null
      */
-    public function getEmailWarehouse(): string
+    public function getEmailWarehouse()
     {
         return $this->email_warehouse;
     }

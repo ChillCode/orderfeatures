@@ -30,6 +30,7 @@ declare(strict_types=1);
 namespace PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryHandler;
 
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Query\GetOrderStateForEditing;
+use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryResult\EditableOrderState;
 
 /**
  * Interface for service that gets order state data for editing

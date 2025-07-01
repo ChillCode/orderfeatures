@@ -25,8 +25,8 @@
  * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
  */
 
-//phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
-//phpcs:disable Generic.Files.LineLength.TooLong
+// phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
+// phpcs:disable Generic.Files.LineLength.TooLong
 /**
  * Overriding is never a nice choice but there are no hooks here and src/ references this ObjectModel.
  * Send an additional email to warehouse adding order reference in the subject.
@@ -45,8 +45,8 @@ class OrderHistory extends OrderHistoryCore
             WHERE oh.`id_order_history` = ' . (int) $this->id . ' AND (os.`send_email` = 1 OR os.`send_email_warehouse` = 1)');
 
         if (
-            (!empty($result['template']) && Validate::isEmail($result['email'])) ||
-            (!empty($result['warehouse_template']) && Validate::isEmail($result['email_warehouse']))
+            (!empty($result['template']) && Validate::isEmail($result['email']))
+            || (!empty($result['warehouse_template']) && Validate::isEmail($result['email_warehouse']))
         ) {
             ShopUrl::cacheMainDomainForShop($order->id_shop);
 

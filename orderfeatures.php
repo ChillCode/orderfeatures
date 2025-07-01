@@ -1,8 +1,8 @@
 <?php
 
-//phpcs:disable PSR12.Files.FileHeader.SpacingAfterBlock, PSR1.Classes.ClassDeclaration.MissingNamespace, PSR1.Files.SideEffects.FoundWithSymbols
+// phpcs:disable PSR12.Files.FileHeader.SpacingAfterBlock, PSR1.Classes.ClassDeclaration.MissingNamespace, PSR1.Files.SideEffects.FoundWithSymbols
 
-/**
+/*
  * Order Features
  *
  * PHP version 8.1
@@ -72,6 +72,7 @@ class Orderfeatures extends Module
     {
         return $this->alterTables(ORDERFEATURES_DROP) && parent::uninstall();
     }
+
     public function hookActionAdminControllerSetMedia()
     {
         $controller = Tools::getValue('controller');

@@ -36,7 +36,6 @@ class OrderState extends OrderStateCore
     /**
      * @var string
      */
-
     public $email_warehouse;
 
     /**
@@ -50,18 +49,18 @@ class OrderState extends OrderStateCore
         $id_shop = null,
     ) {
         self::$definition['fields']['send_email_warehouse'] = [
-            'type' => self::TYPE_BOOL
+            'type' => self::TYPE_BOOL,
         ];
         self::$definition['fields']['email_warehouse'] = [
             'type' => self::TYPE_STRING,
-            'size' => 255
+            'size' => 255,
         ];
 
         self::$definition['fields']['warehouse_template'] = [
             'type' => self::TYPE_STRING,
             'lang' => true,
             'validate' => 'isTplName',
-            'size' => 64
+            'size' => 64,
         ];
 
         parent::__construct($id, $id_lang, $id_shop);

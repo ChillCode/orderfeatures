@@ -337,7 +337,7 @@ class AddOrderStateCommand
     }
 
     /**
-     * @return string
+     * @return string[]
      */
     public function getLocalizedWarehouseTemplates()
     {

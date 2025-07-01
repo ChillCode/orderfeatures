@@ -142,10 +142,10 @@ final class EditOrderStateHandler extends AbstractOrderStateHandler implements E
         if (null !== $command->isSendEmailWarehouse()) {
             $orderState->send_email_warehouse = $command->isSendEmailWarehouse();
             if ($orderState->send_email_warehouse) {
-                if (null !== $command->getEmailWarehouse()) {
+                if (!empty($command->getEmailWarehouse())) {
                     $orderState->email_warehouse = $command->getEmailWarehouse();
                 }
-                if (null !== $command->getWarehouseTemplate()) {
+                if (!empty($command->getWarehouseTemplate())) {
                     $orderState->warehouse_template = $command->getWarehouseTemplate();
                 }
             }

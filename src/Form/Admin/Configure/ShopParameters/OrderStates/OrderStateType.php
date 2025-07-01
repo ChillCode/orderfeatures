@@ -31,6 +31,7 @@ namespace PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\Or
 
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
 use PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\Layout\Layout;
 use PrestaShopBundle\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType as BaseOrderStateType;
 use PrestaShopBundle\Form\Admin\Type\TranslatableChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -42,7 +43,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OrderStateType extends BaseOrderStateType
 {
-    private BaseOrderStateType $inner;
     private TranslatorInterface $translator;
 
     /**
@@ -56,7 +56,6 @@ class OrderStateType extends BaseOrderStateType
     private $warehouseTemplateAttributes;
 
     public function __construct(
-        BaseOrderStateType $inner,
         TranslatorInterface $translator,
         array $locales,
         ThemeCatalogInterface $themeCatalog,
@@ -64,7 +63,6 @@ class OrderStateType extends BaseOrderStateType
         ShopConfigurationInterface $configuration,
     ) {
         parent::__construct($translator, $locales, $themeCatalog, $routing, $configuration);
-        $this->inner = $inner;
         $this->translator = $translator;
 
         $mailTheme = $configuration->get('PS_MAIL_THEME', 'modern');
