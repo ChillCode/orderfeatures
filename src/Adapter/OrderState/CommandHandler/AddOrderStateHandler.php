@@ -80,6 +80,11 @@ final class AddOrderStateHandler extends AbstractOrderStateHandler implements Ad
         return new OrderStateId((int) $orderState->id);
     }
 
+    /**
+     * Fill Order State With Command Data.
+     *
+     * @return void
+     */
     private function fillOrderStateWithCommandData(\OrderState $orderState, AddOrderStateCommand $command)
     {
         $orderState->name = $command->getLocalizedNames();

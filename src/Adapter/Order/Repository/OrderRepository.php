@@ -42,27 +42,15 @@ use PrestaShop\PrestaShop\Core\Repository\AbstractMultiShopObjectModelRepository
 class OrderRepository extends AbstractMultiShopObjectModelRepository
 {
     /**
-     * @var Connection
-     */
-    private $connection;
-
-    /**
-     * @var string
-     */
-    private $dbPrefix;
-
-    /**
      * OrderRepository constructor.
      *
      * @param Connection $connection
      * @param string $dbPrefix
      */
     public function __construct(
-        Connection $connection,
-        $dbPrefix,
+        private readonly Connection $connection,
+        private readonly string $dbPrefix,
     ) {
-        $this->connection = $connection;
-        $this->dbPrefix = $dbPrefix;
     }
 
     /**

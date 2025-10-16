@@ -30,8 +30,8 @@ declare(strict_types=1);
 namespace PrestaShop\Module\OrderFeatures\Form\Admin\Configure\ShopParameters\OrderStates;
 
 use PrestaShop\PrestaShop\Core\Domain\Configuration\ShopConfigurationInterface;
-use PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface;
 use PrestaShop\PrestaShop\Core\MailTemplate\Layout\Layout;
+use PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface;
 use PrestaShopBundle\Form\Admin\Configure\ShopParameters\OrderStates\OrderStateType as BaseOrderStateType;
 use PrestaShopBundle\Form\Admin\Type\TranslatableChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

@@ -31,15 +31,15 @@ namespace PrestaShop\Module\OrderFeatures\Command;
 
 use PrestaShop\Module\OrderFeatures\Core\Domain\Order\Command\DeleteOrderCommand;
 use PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'orderfeatures:delete-orders', description: 'Deletes orders by ID')]
 class DeleteOrdersCommand extends Command
 {
-    protected static $defaultName = 'orderfeatures:delete-orders';
-
     public function __construct(
         private readonly CommandBusInterface $commandBus,
     ) {
@@ -48,13 +48,12 @@ class DeleteOrdersCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Deletes orders by ID.')
-            ->addArgument('orderIds', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'Space-separated list of order IDs to delete');
+        $this->addArgument('orderIds', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'Space-separated list of order IDs to delete');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var array<int,int> */
         $orderIds = $input->getArgument('orderIds');
 
         foreach ($orderIds as $orderId) {

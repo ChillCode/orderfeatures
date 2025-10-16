@@ -10,16 +10,17 @@
  * @category Module
  *
  * @author ChillCode https://github.com/chillcode
- * @copyright 2003-2023
+ * @copyright 2003
  * @license https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *
- * @version GIT: 3.0.0
+ * @version GIT: 3.0.1
  *
  * @see https://github.com/chillcode
  */
+
 defined('_PS_VERSION_') || exit;
 
-define('ORDERFEATURES_VERSION', '3.0.0');
+define('ORDERFEATURES_VERSION', '3.0.1');
 
 define('ORDERFEATURES_ADD', 1);
 define('ORDERFEATURES_DROP', 2);
@@ -34,10 +35,10 @@ class Orderfeatures extends Module
     {
         $this->name = 'orderfeatures';
         $this->tab = 'content_management';
-        $this->version = '3.0.0';
+        $this->version = '3.0.1';
         $this->author = 'Chillcode';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = ['min' => '9.0.0', 'max' => _PS_VERSION_];
+        $this->ps_versions_compliancy = ['min' => '9.0.0', 'max' => '9.0.1'];
 
         parent::__construct();
 
@@ -60,9 +61,15 @@ class Orderfeatures extends Module
         );
     }
 
+    /**
+     * Insert module from datable.
+     *
+     * @return bool
+     */
     public function install()
     {
-        return $this->alterTables(ORDERFEATURES_ADD) && parent::install() && $this->registerHook('actionAdminControllerSetMedia');
+        return $this->alterTables(ORDERFEATURES_ADD)
+        && parent::install() && $this->registerHook('actionAdminControllerSetMedia');
     }
 
     /**
@@ -73,8 +80,19 @@ class Orderfeatures extends Module
         return $this->alterTables(ORDERFEATURES_DROP) && parent::uninstall();
     }
 
+    /**
+     * Hook AdminController SetMedia.
+     *
+     * @return void
+     *
+     * @throws Error
+     */
     public function hookActionAdminControllerSetMedia()
     {
+        /**
+         * Hooks are valid to control JS loading but disabling services
+         * on disabled modules allows modules to load JS easily via twig templates.
+         */
         $controller = Tools::getValue('controller');
         if ($controller === 'AdminStatuses') {
             $this->context->controller->addJS(
@@ -101,7 +119,6 @@ class Orderfeatures extends Module
         }
 
         $db = Db::getInstance();
-        $table = _DB_PREFIX_ . 'order_state';
 
         // Schema changes
         $schemaChanges = [

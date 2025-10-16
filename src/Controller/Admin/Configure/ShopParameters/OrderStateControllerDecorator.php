@@ -33,6 +33,7 @@ namespace PrestaShop\Module\OrderFeatures\Controller\Admin\Configure\ShopParamet
 
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Command\EditOrderStateCommand;
 use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\Query\GetOrderStateForEditing;
+use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryResult\EditableOrderState;
 use PrestaShop\PrestaShop\Adapter\LegacyContext;
 use PrestaShop\PrestaShop\Core\Domain\OrderReturnState\Command\BulkDeleteOrderReturnStateCommand;
 use PrestaShop\PrestaShop\Core\Domain\OrderReturnState\Command\DeleteOrderReturnStateCommand;
@@ -53,13 +54,14 @@ use PrestaShop\PrestaShop\Core\Grid\GridFactoryInterface;
 use PrestaShop\PrestaShop\Core\Search\Filters\OrderReturnStatesFilters;
 use PrestaShop\PrestaShop\Core\Search\Filters\OrderStatesFilters;
 use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
+use PrestaShopBundle\Controller\Attribute\AllShopContext;
 use PrestaShopBundle\Security\Attribute\AdminSecurity;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use PrestaShop\Module\OrderFeatures\Core\Domain\OrderState\QueryResult\EditableOrderState;
 
+#[AllShopContext]
 class OrderStateControllerDecorator extends PrestaShopAdminController
 {
     public static function getSubscribedServices(): array
@@ -218,6 +220,43 @@ class OrderStateControllerDecorator extends PrestaShopAdminController
                 ],
                 'Admin.Navigation.Menu',
             ),
+        ]);
+    }
+
+    #[AdminSecurity("is_granted('create', request.get('_legacy_controller'))")]
+    public function createOrderReturnStateAction(
+        Request $request,
+        #[Autowire(service: 'prestashop.core.form.identifiable_object.builder.order_return_state_form_builder')]
+        FormBuilderInterface $orderReturnStateFormBuilder,
+        #[Autowire(service: 'prestashop.core.form.identifiable_object.handler.order_return_state_form_handler')]
+        FormHandlerInterface $orderReturnStateFormHandler,
+    ): Response {
+        $orderReturnStateForm = $orderReturnStateFormBuilder->getForm();
+        $orderReturnStateForm->handleRequest($request);
+
+        try {
+            $result = $orderReturnStateFormHandler->handle($orderReturnStateForm);
+
+            if ($result->getIdentifiableObjectId()) {
+                $this->addFlash('success', $this->trans('Successful creation', [], 'Admin.Notifications.Success'));
+
+                return $this->redirectToRoute('admin_order_states');
+            }
+        } catch (OrderReturnStateException $e) {
+            $this->addFlash('error', $this->getErrorMessageForException($e, $this->getErrorMessages($e)));
+        }
+
+        return $this->render('@PrestaShop/Admin/Configure/ShopParameters/OrderReturnStates/create.html.twig', [
+            'orderReturnStateForm' => $orderReturnStateForm->createView(),
+            'help_link' => $this->generateSidebarLink($request->attributes->get('_legacy_controller')),
+            'multistoreInfoTip' => $this->trans(
+                'Note that this feature is only available in the "all stores" context. It will be added to all your stores.',
+                [],
+                'Admin.Notifications.Info'
+            ),
+            'multistoreIsUsed' => $this->getShopContext()->isMultiShopUsed(),
+            'enableSidebar' => true,
+            'layoutTitle' => $this->trans('New return status', [], 'Admin.Navigation.Menu'),
         ]);
     }
 

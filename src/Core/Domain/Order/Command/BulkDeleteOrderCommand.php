@@ -58,7 +58,7 @@ class BulkDeleteOrderCommand
     /**
      * @param int[] $orderIds
      */
-    private function setOrderIds(array $orderIds)
+    private function setOrderIds(array $orderIds): void
     {
         foreach ($orderIds as $orderId) {
             $this->orderIds[] = new OrderId($orderId);
